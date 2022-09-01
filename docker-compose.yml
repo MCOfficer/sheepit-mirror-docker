@@ -37,6 +37,7 @@ services:
       - 80
     volumes:
       - ./mounts/projects:/tmp/projects
+      - ./mounts/project-logs:/tmp/logs
       - type: bind
         source: ./scene.conf.php
         target: /etc/sheepit-mirror/etc/config.local.inc.php
