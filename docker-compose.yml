@@ -36,7 +36,7 @@ services:
       - ./mounts/project-logs:/tmp/logs
       - type: bind
         source: ./scene.conf.php
-        target: /etc/sheepit-mirror/etc/config.local.inc.php
+        target: /etc/sheepit-mirror/config.local.inc.php
       - type: bind
         source: ./speedtest.zip
         target: /var/www/html/speedtest.zip
