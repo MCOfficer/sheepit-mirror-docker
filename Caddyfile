@@ -4,6 +4,7 @@
 
 {$URL}
 
+redir /binary /binary/
 handle_path /binary/* {
 	reverse_proxy binary:80
 }
