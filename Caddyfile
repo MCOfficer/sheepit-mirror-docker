@@ -1,14 +1,15 @@
 {
-	email {EMAIL}
+	email {$EMAIL}
 }
 
-{IP}
+{$URL}
 
-handle_path /binary/ {
+handle_path /binary/* {
 	reverse_proxy binary:80
 }
 
-handle_path /scene/ {
-	reverse_proxy scene:80
-	header_up X-Real-IP {remote_addr}
+handle_path /scene/* {
+	reverse_proxy scene:80 {
+		header_up X-Real-IP {remote_addr}
+	}
 }

@@ -11,8 +11,8 @@ services:
       - ${IP}:443:443
       - ${IP}:443:443/udp
     environment:
-      - IP: ${IP}
-      - EMAIL: ${EMAIL}
+      - EMAIL=${EMAIL}
+      - URL=${URL}
     volumes:
       - type: bind
         source: ./Caddyfile
@@ -30,7 +30,7 @@ services:
   scene:
     image: sheepitrenderfarm/project-mirror
     container_name: sheepit_project
-    restart: always
+    restart: unless-stopped
     volumes:
       - ./mounts/projects:/tmp/projects
       - ./mounts/project-logs:/tmp/logs
