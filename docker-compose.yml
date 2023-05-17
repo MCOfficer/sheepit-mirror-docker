@@ -1,40 +1,36 @@
 version: '3.3'
 
 services:
-  swag:
-    image: lscr.io/linuxserver/swag:latest
-    container_name: swag
-    cap_add:
-      - NET_ADMIN
-    environment:
-      - VALIDATION=http
-      - STAGING
-      - URL
-      - EMAIL
-      - TZ
-    volumes:
-      - ./mounts/swag:/config
-      - type: bind
-        source: ./swag.conf
-        target: /config/nginx/site-confs/default
-    ports:
-      - ${IP}:443:443
-      - ${IP}:80:80
+
+  caddy:
+    image: caddy
+    container_name: sheepit_caddy
     restart: unless-stopped
-    
+    ports:
+      - ${IP}:80:80
+      - ${IP}:443:443
+      - ${IP}:443:443/udp
+    environment:
+      - IP: ${IP}
+      - EMAIL: ${EMAIL}
+    volumes:
+      - type: bind
+        source: ./Caddyfile
+        target: /etc/caddy/Caddyfile
+      - ./mounts/caddy-config:/config
+      - /etc/localtime:/etc/localtime:ro
+
   binary:
     build: ./sheepit-binary-docker
+    container_name: sheepit_binary
     restart: unless-stopped
-    ports:
-      - 80
     volumes:
       - ./mounts/binary:/data
 
   scene:
     image: sheepitrenderfarm/project-mirror
+    container_name: sheepit_project
     restart: always
-    ports:
-      - 80
     volumes:
       - ./mounts/projects:/tmp/projects
       - ./mounts/project-logs:/tmp/logs
@@ -44,4 +40,3 @@ services:
       - type: bind
         source: ./speedtest.zip
         target: /var/www/html/speedtest.zip
-

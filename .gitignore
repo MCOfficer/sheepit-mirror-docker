@@ -1,1 +1,4 @@
-/mounts/*
+/mounts/binary/*zip
+/mounts/caddy-config/caddy
+/mounts/project-logs/*log*
+/mounts/projects/*zip

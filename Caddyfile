@@ -1,0 +1,14 @@
+{
+	email {EMAIL}
+}
+
+{IP}
+
+handle_path /binary/ {
+	reverse_proxy binary:80
+}
+
+handle_path /scene/ {
+	reverse_proxy scene:80
+	header_up X-Real-IP {remote_addr}
+}
